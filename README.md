@@ -1,13 +1,28 @@
-# RL and Deep-RL implementations
+# Reinforcement Learning: Tabular and Deep RL
 
-This is a **modular** implementation, meaning: you can plug-and-play **almost any environment** (in the corresponding file, within the same base folder) **with any algorithm**.
+A modular reinforcement learning library from my RL research, implementing tabular and deep RL algorithms so that almost any algorithm can be paired with almost any supported Gym environment. The deep RL agents (deep Q-learning, policy gradient, actor-critic and DDPG) can mostly be built in TensorFlow, Keras or PyTorch. The deep Q-learning, policy gradient and actor-critic agents include a CNN-based visual architecture, a three-layer convolutional network over stacked frames, for learning Atari games (Breakout, Space Invaders) directly from pixels. The results below show agents before and after training on Mountain Car, Cart Pole and Acrobot, algorithm comparisons, and a hyperparameter grid search.
 
-Table of contents:
+## Main parts
 
-* [Tabular RL Algorithms](https://github.com/EliorBenYosef/reinforcement-learning#tabular-rl-algorithms)
-* [Deep RL Algorithms](https://github.com/EliorBenYosef/reinforcement-learning#deep-rl-algorithms) 
-* [Results](https://github.com/EliorBenYosef/reinforcement-learning#results) 
-* [How to use](https://github.com/EliorBenYosef/reinforcement-learning#how-to-use) 
+- `reinforcement_learning/tabular_RL/` – Monte Carlo and TD(0) prediction and control (SARSA, Expected SARSA, Q-learning, Double Q-learning), with discretized state spaces for the classic-control environments.
+- `reinforcement_learning/deep_RL/` – DQL (including double DQL), policy gradient/REINFORCE, actor-critic and DDPG; fully connected and convolutional network templates, replay buffer, grid search and a command-line runner.
+- `reinforcement_learning/utils/` – plotting and shared helpers.
+- `tests/` – runnable usage examples for every algorithm ([tabular](tests/test_tabular_rl.py), [DQL](tests/test_deep_rl/test_dql.py), [PG](tests/test_deep_rl/test_pg.py), [AC](tests/test_deep_rl/test_ac.py), [DDPG](tests/test_deep_rl/test_ddpg.py)).
+- `results/` – training curves and before/after GIFs.
+
+## How to run
+
+```bash
+pip install -r requirements.txt
+python -m pytest tests/test_tabular_rl.py
+python -m pytest tests/test_deep_rl/test_dql.py
+```
+
+The code uses the classic Gym API (`reset()` returns the observation and `step()` returns four values), so it needs a Gym release earlier than 0.26. The Atari environments also need Gym's Atari extras.
+
+## Tech
+
+Python · TensorFlow · Keras · PyTorch · TensorFlow Probability · OpenAI Gym · NumPy · Matplotlib
 
 ## Tabular RL Algorithms
 
@@ -138,14 +153,3 @@ Performance of DQL Grid Search on first & second FC layers' sizes (number of nod
 <p align="left">
   <img src="https://github.com/EliorBenYosef/reinforcement-learning/blob/master/results/deep_RL/cart-pole-v1_dql.png" width="500">
 </p>
-
-## How to use
-
-The test files contain examples of how to use:
-
-* [Tabular RL Algorithms](../master/tests/test_tabular_rl.py)
-* Deep RL Algorithms:
-  * [DQL](../master/tests/test_deep_rl/test_dql.py)
-  * [PG](../master/tests/test_deep_rl/test_pg.py)
-  * [AC](../master/tests/test_deep_rl/test_ac.py)
-  * [DDPG](../master/tests/test_deep_rl/test_ddpg.py)
